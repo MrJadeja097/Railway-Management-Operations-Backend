@@ -11,8 +11,18 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new RpcGlobalExceptionInterceptor());
   const config = new DocumentBuilder()
-    .setTitle('Railway Management')
-    .setDescription('This application is used for managing railways system.')
+    .setTitle('Railway Operations & Management API')
+    .setDescription(
+      `**Comprehensive API for managing the Indian Railway system.**
+
+This application provides secure, role-based access to perform CRUD operations on entities like \`Trains\`, \`Stations\`, \`RailLines\`, and \`Staff\`. 
+Built for railway administrators and managers, it ensures real-time control and visibility into route planning, staff coordination, and infrastructure data.
+
+-> Secured via JWT authentication  
+-> Designed for MANAGEMENT and ADMIN roles  
+-> Scalable, modular, and optimized for performance  
+-> Built with NestJS and follows strict API documentation standards`,
+    )
     .setVersion('1.0')
     .addBearerAuth(
       {

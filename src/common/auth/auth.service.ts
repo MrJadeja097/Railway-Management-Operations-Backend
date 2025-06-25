@@ -11,8 +11,8 @@ export class AuthService {
     constructor(private readonly getStaffByArgsService: GetStaffByArgsService, private readonly jwtService: JwtService) {}
 
     async login(loginBody: AuthLoginDto){
-        const users : StaffMainDto[]= await this.getStaffByArgsService.findByArgs({email: loginBody.email})
-        const user : StaffMainDto = users[0]
+        const users = await this.getStaffByArgsService.findByArgs({email: loginBody.email})
+        const user  = users[0]
         const match : boolean = await bcrypt.compare(loginBody.password, user.password)
 
         if (match) {
