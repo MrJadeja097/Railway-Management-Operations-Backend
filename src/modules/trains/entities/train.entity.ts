@@ -34,5 +34,5 @@ export class TrainEntity extends BaseCommonEntity {
 
   @OneToOne(() => ActiveRouteEntity, (activeRoute) => activeRoute.trainId)
   @AutoMap()
-  public activeRoute = ActiveRouteEntity;
+  public activeRoute : ActiveRouteEntity;
 }

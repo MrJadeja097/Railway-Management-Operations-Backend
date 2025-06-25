@@ -119,7 +119,7 @@ remove(@Param('id') id: string) : Promise<boolean> {
 
 @UseGuards(AuthGuard)
 @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
-@Get('/searchStation/:name')
+@Get('/searchStationByName/:name')
 @ApiOperation({
   summary: 'Search a station by name.',
   description: `Finds one or more stations that match the provided \`name\`.

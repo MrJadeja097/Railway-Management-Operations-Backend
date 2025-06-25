@@ -19,7 +19,7 @@ export class TrainMainDto {
   public top_speed: number;
 
   @AutoMap()
-  public activeRoute = ActiveRouteMainDto;
+  public activeRoute : ActiveRouteMainDto;
 
   @AutoMap()
  public id: number;
