@@ -19,9 +19,8 @@ import { UpdateStationService } from './service/update-station.service';
 import { DeleteStationService } from './service/delete-station.service';
 import { SearchStationService } from './service/search-station.service';
 import { SearchStationByRailLineService } from './service/search-station-by-rail-line.service';
-import { Roles } from 'src/common/guards/role.decorator';
+import { Permissions } from 'src/common/guards/role.decorator';
 import { AuthGuard } from 'src/common/guards/tokenAuth.guard';
-import { StaffRole } from '../staff/entities/staff.entity';
 import { StationResponseDto } from './dto/Station Response Dtos/station-response.dto';
 
 @ApiBearerAuth('access-token')
@@ -38,7 +37,7 @@ export class StationsController {
   ) {}
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Post()
 @ApiOperation({
   summary: 'Create a station in the database.',
@@ -54,7 +53,7 @@ create(@Body() createStationDto: CreateStationDto) : Promise<StationResponseDto>
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Get()
 @ApiOperation({
   summary: 'Get all stations.',
@@ -69,7 +68,7 @@ findAll() : Promise<StationResponseDto[]> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Get(':id')
 @ApiOperation({
   summary: 'Find a station by ID.',
@@ -85,7 +84,7 @@ findOne(@Param('id') id: string): Promise<StationResponseDto> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Patch(':id')
 @ApiOperation({
   summary: 'Update a station by ID.',
@@ -102,7 +101,7 @@ update(@Param('id') id: number, @Body() updateStationDto: UpdateStationDto) : Pr
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Delete(':id')
 @ApiOperation({
   summary: 'Delete a station by ID.',
@@ -118,7 +117,7 @@ remove(@Param('id') id: string) : Promise<boolean> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Get('/searchStationByName/:name')
 @ApiOperation({
   summary: 'Search a station by name.',
@@ -134,7 +133,7 @@ search(@Param('name') name: string): Promise<StationResponseDto[]> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Get('/searchStationByRailLine/:RailLineName')
 @ApiOperation({
   summary: 'Search stations by RailLine name.',

@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
-import { StaffRole } from 'src/modules/staff/entities/staff.entity';
-import { ROLES_KEY } from './role.decorator';
+import { ROLES_KEY, Permissions } from './role.decorator';
 import { Reflector } from '@nestjs/core';
 import { JwtPayloadDto } from '../auth/Dto/jwt-token.dto';
+import { decode } from 'punycode';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,29 +16,38 @@ export class AuthGuard implements CanActivate {
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
   ) {}
-  canActivate(
+  async canActivate(
     context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const requiredRoles = this.reflector.getAllAndOverride<StaffRole[]>(
+  ):  Promise<boolean> {
+    const requiredRoles = this.reflector.getAllAndOverride<string[]>(
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
     );
+
+    console.log(requiredRoles,'777777777777777777777');
+    
     const request = context.switchToHttp().getRequest();
 
     let decoded: JwtPayloadDto;
 
     const token = request.headers['authorization'].split(' ')[1];
     try {
-      decoded = this.jwtService.verify(token);
+      decoded =  await this.jwtService.verify(token);
+      
     } catch {
       return false;
     }
+    
 
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;
     }
 
-    if (requiredRoles.includes(decoded.role)) {
+    if (decoded.permissions.length === 0) {
+      return false;
+    }
+
+    if (decoded.permissions.includes(requiredRoles[0])) {
       return true;
     }
 

@@ -97,7 +97,7 @@ export abstract class BaseReadOnlyRepo<
   public async allAsync(filterObj: TFilter = {} as TFilter): Promise<T[]> {
     try {
       const opts = this.createFilterOpts(filterObj);
-        const es = await this.internalRepo.find(opts);        
+        const es = await this.internalRepo.find(opts);    
         return this.mapToModelArray(es);
     } catch (ex) {
       this.logger.error(ex);

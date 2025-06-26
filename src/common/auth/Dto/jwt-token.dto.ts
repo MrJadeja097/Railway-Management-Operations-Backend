@@ -1,8 +1,6 @@
-import { StaffRole } from "src/modules/staff/entities/staff.entity";
-
 export class JwtPayloadDto {
   id: number;
-  role: StaffRole;
+  permissions: string[];
   iat?: number;
   exp?: number;
 }
