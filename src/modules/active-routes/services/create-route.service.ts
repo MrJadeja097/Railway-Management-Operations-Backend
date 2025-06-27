@@ -6,12 +6,10 @@ import { GetTrainByIdService } from 'src/modules/trains/services/get-train-by-id
 import { GetStationByIdService } from 'src/modules/stations/service/get-station-by-id.service';
 import { GetRailLineByIdService } from 'src/modules/rail-lines/services/get-rail-line-by-id.service';
 import { RPCBadRequestException } from 'src/common/exceptions/badReuest.exception';
-import { StaffRole } from 'src/modules/staff/entities/staff.entity';
 import { TrainStatus } from 'src/modules/trains/entities/train.entity';
 import { ActiveRouteMainDto } from '../dto/Routes Main Dtos/active-routes-main.dto';
 import { DbException } from 'src/common/exceptions';
 import { UpdateTrainService } from 'src/modules/trains/services/update-train.service';
-import { Entity } from 'typeorm';
 import { ActiveRouteResponseDto } from '../dto/Routes Response Dtos/routes-response.dto';
 
 @Injectable()
@@ -47,13 +45,13 @@ export class CreateRouteService {
         throw new RPCBadRequestException("Start station's rail line, end station's rail line and Rail line you entered have to be same.")
     }
 
-    if(driver.role !== StaffRole.DRIVER){
-        throw new RPCBadRequestException("The staff member id you entered at driver is not a driver.")
-    }
+    // if(driver.role !== StaffRole.DRIVER){
+    //     throw new RPCBadRequestException("The staff member id you entered at driver is not a driver.")
+    // }
 
-    if(backGuard.role !== StaffRole.BACK_GUARD){
-        throw new RPCBadRequestException("The staff member id you entered at driver is not a driver.")
-    }
+    // if(backGuard.role !== StaffRole.BACK_GUARD){
+    //     throw new RPCBadRequestException("The staff member id you entered at driver is not a driver.")
+    // }
 
     if (train.status !== TrainStatus.ACTIVE) {
         throw new RPCBadRequestException("The train id not active to put on any route.")

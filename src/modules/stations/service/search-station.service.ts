@@ -8,8 +8,8 @@ export class SearchStationService {
       constructor(private readonly stationRepo: StationRepository) {}
     
       async searchStation(name: string): Promise<StationResponseDto[]> {
-        const station = this.stationRepo.allAsync({ name: name });
-        if ((await station).length === 0) {
+        const station = await this.stationRepo.allAsync({ name: name });
+        if (station.length === 0) {
           throw new RPCNotFoundException(`No station have name like ${name}`);
         }
         return this.stationRepo.mapArrayToResponse(station);

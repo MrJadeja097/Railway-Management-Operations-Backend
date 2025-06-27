@@ -2,8 +2,9 @@ import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { EOrder } from 'src/common/Base Repository/filtering';
+import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
+import { RoleRequestDto } from 'src/common/roles/dto/Role Request Dtos/create-role.dto';
 import { ActiveRouteEntity } from 'src/modules/active-routes/entities/activeRoute.entity';
-import { StaffRole } from 'src/modules/staff/entities/staff.entity';
 
 export class StaffRequestArgsDto {
   @AutoMap()
@@ -31,7 +32,7 @@ export class StaffRequestArgsDto {
   public mobileNumber: string;
 
   @AutoMap()
-  @ApiProperty({ example: 'yashrajsinh@gmail.com' })
+  @ApiProperty({ example: 'admin@hotmail.com' })
   @IsString()
   @IsNotEmpty()
   public email: string;
@@ -49,10 +50,10 @@ export class StaffRequestArgsDto {
   public city: string;
 
   @AutoMap()
-  @ApiProperty({ example: StaffRole.MANAGEMENT })
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  public role: StaffRole;
+  public role: RoleRequestDto | number;
 
   @AutoMap()
   // @ApiProperty()

@@ -26,8 +26,9 @@ export class BaseCommonEntity {
   })
   public updatedAt!: Date;
 
-    @DeleteDateColumn({ type: 'timestamptz'})
-    public deletedAt!: Date;
+  @AutoMap()
+  @DeleteDateColumn({ type: 'timestamptz' })
+  public deletedAt!: Date;
 
   // @AutoMap()
   // @Column({ type: 'boolean', default: 0 })
