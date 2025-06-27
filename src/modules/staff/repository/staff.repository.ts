@@ -9,6 +9,7 @@ import { StaffMainDto } from '../dto/Staff Main Dtos/staff-main.dto';
 import { InjectMapper } from '@automapper/nestjs';
 import { BaseRepo } from 'src/common/Base Repository';
 import { StaffResponseDto } from '../dto/Staff Response Dtos/staff-response.dto';
+import { IPageableFilterBase, IFilterBase } from 'src/common/Base Repository/filtering';
 
 @Injectable()
 export class StaffRepository extends BaseRepo<
@@ -27,6 +28,10 @@ export class StaffRepository extends BaseRepo<
 
   public override get softDeleteEnabled(): boolean {
     return true;
+  }
+
+  protected modifyFindOption(findOpts: FindManyOptions<StaffEntity>, filterObj: Partial<StaffMainDto & IPageableFilterBase<number>> | Partial<StaffMainDto & IFilterBase<number>>): void {
+    findOpts.relations= ['role']
   }
 
   public mapObjectToResponse(answer: any) {

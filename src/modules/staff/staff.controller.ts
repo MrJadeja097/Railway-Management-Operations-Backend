@@ -17,8 +17,7 @@ import { StaffRequestArgsDto } from './dto/Staff Request Dtos/staff-args-request
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { DeleteStaffService } from './services/delete-staff.service';
 import { AuthGuard } from 'src/common/guards/tokenAuth.guard';
-import { Roles } from 'src/common/guards/role.decorator';
-import { StaffRole } from './entities/staff.entity';
+import { Permissions } from 'src/common/guards/role.decorator';
 import { StaffResponseDto } from './dto/Staff Response Dtos/staff-response.dto';
 
 @UseInterceptors(LoggingInterceptor)
@@ -33,7 +32,7 @@ export class StaffController {
   ) {}
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.ADMIN)
+// @Permissions('dcs','csaf')
 @Post()
 @ApiOperation({
   summary: 'Create a staff person.',
@@ -49,7 +48,7 @@ create(@Body() createStaffDto: CreateStaffDto) : Promise<StaffResponseDto> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('create_staff')
 @Get('all')
 @ApiOperation({
   summary: 'Get all staff persons info.',
@@ -63,7 +62,7 @@ findAll() : Promise<StaffResponseDto[]> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Get(':id')
 @ApiOperation({
   summary: 'Find a staff person by ID.',
@@ -78,7 +77,7 @@ findOne(@Param('id') id: string) : Promise<StaffResponseDto> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Delete(':id')
 @ApiOperation({
   summary: 'Delete a staff member by ID.',
@@ -93,7 +92,7 @@ remove(@Param('id') id: string) : Promise<boolean> {
 }
 
 @UseGuards(AuthGuard)
-@Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
 @Post('find-user-by-args')
 @ApiOperation({
   summary: 'Find a staff person from arguments.',

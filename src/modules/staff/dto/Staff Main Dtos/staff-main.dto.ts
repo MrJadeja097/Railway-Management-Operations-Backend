@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
+import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
 import { ActiveRouteMainDto } from 'src/modules/active-routes/dto/Routes Main Dtos/active-routes-main.dto';
-import { StaffRole } from '../../entities/staff.entity';
 
 export class StaffMainDto {
   @AutoMap()
@@ -25,7 +25,7 @@ export class StaffMainDto {
   public password: string;
 
   @AutoMap()
-  public role: StaffRole;
+  public role: RoleMainDto;
 
   @AutoMap()
   public activeRouteDriver: ActiveRouteMainDto;

@@ -1,8 +1,8 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { ActiveRouteEntity } from 'src/modules/active-routes/entities/activeRoute.entity';
-import { StaffRole } from 'src/modules/staff/entities/staff.entity';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
+import { RoleRequestDto } from 'src/common/roles/dto/Role Request Dtos/create-role.dto';
 
 export class CreateStaffDto {
   @AutoMap()
@@ -48,8 +48,8 @@ export class CreateStaffDto {
   public password: string;
 
   @AutoMap()
-  @ApiProperty({ example: StaffRole.MANAGEMENT })
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  public role: StaffRole;
+  public role: number | RoleRequestDto;
 }
