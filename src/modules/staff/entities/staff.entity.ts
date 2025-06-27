@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 import { RolesEntity } from 'src/common/roles/entities/role.entity';
 import { ActiveRouteEntity } from 'src/modules/active-routes/entities/activeRoute.entity';
 import { BaseCommonEntity } from 'src/utils/base.entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity()
 export class StaffEntity extends BaseCommonEntity {
@@ -43,7 +43,7 @@ export class StaffEntity extends BaseCommonEntity {
   public activeRouteBackGuard: ActiveRouteEntity;
   
   @AutoMap()
-  @OneToOne(() => RolesEntity, (role) => role.staff)
+  @ManyToOne(() => RolesEntity, (role) => role.staff)
   @JoinColumn({name : 'role_id'})
   public role: RolesEntity;
 }

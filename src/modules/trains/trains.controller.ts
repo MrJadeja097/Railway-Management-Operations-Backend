@@ -43,7 +43,7 @@ export class TrainsController {
   ) {}
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('create_train')
   @Post()
   @ApiOperation({
     summary: 'Add Train to Database.',
@@ -66,7 +66,7 @@ Only users with MANAGEMENT or ADMIN roles can perform this operation.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_train')
   @Get()
   @ApiOperation({
     summary: 'See all available Trains.',
@@ -85,7 +85,7 @@ Returns data including train name, capacity, and metadata. Accessible to MANAGEM
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_train')
   @Get(':name')
   @ApiOperation({
     summary: 'Search a train by name.',
@@ -107,7 +107,7 @@ Useful for finding specific trains when the ID is unknown. Only accessible to MA
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_train')
   @Get('/findById/:id')
   @ApiOperation({
     summary: 'Search a train by ID.',
@@ -127,7 +127,7 @@ This operation is restricted to MANAGEMENT and ADMIN roles.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('update_train')
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a train by ID.',
@@ -150,7 +150,7 @@ Only MANAGEMENT and ADMIN roles can access this operation.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('delete_train')
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete a train by ID.',

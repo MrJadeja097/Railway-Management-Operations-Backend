@@ -41,6 +41,7 @@ import { RolesModule } from './common/roles/roles.module';
     StaffModule,
     LoggerModule.forRoot({
       pinoHttp: {
+        autoLogging: false,
         transport: {
           target: 'pino-pretty',
           options: {
@@ -56,10 +57,12 @@ import { RolesModule } from './common/roles/roles.module';
     RolesModule,
   ],
   providers: [JwtService],
-  exports: [JwtService]
+  exports: [JwtService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthenticateTokenMiddleware).forRoutes('staff', 'trains', 'stations', 'rail-lines');
+    consumer
+      .apply(AuthenticateTokenMiddleware)
+      .forRoutes('staff', 'trains', 'stations', 'rail-lines');
   }
 }

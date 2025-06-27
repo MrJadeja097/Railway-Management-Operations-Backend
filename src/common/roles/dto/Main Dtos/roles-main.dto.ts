@@ -14,7 +14,7 @@ export class RoleMainDto {
   public role_permissions: Role_PermissionsEntity[];
 
   @AutoMap()
-  public staff: StaffMainDto;
+  public staff: StaffMainDto[];
 
   @AutoMap()
   public id: number;

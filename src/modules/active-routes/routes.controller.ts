@@ -37,7 +37,7 @@ export class ActiveRoutesController {
   ) {}
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('create_activeroute')
   @Post('create-route')
   @ApiOperation({
     summary: 'Create a new route using all the existing resources.',
@@ -55,7 +55,7 @@ export class ActiveRoutesController {
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_activeroute')
   @Get()
   @ApiOperation({
     summary: 'Retrieve all active routes.',
@@ -72,7 +72,7 @@ export class ActiveRoutesController {
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_activeroute')
   @Get(':id')
   @ApiOperation({
     summary: 'Retrieve a specific active route by ID.',

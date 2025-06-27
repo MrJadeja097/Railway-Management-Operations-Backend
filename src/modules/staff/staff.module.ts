@@ -12,6 +12,8 @@ import { AutomapperModule } from '@automapper/nestjs';
 import { AutoMapperProfile } from 'src/profile/automapper.profile';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
+import { AssignRoleToStaffService } from './services/assign-role-to-staff.service';
+import { RolesModule } from 'src/common/roles/roles.module';
 dotenv.config()
 
 @Module({
@@ -23,7 +25,7 @@ dotenv.config()
     JwtModule.register({
           secret: process.env.JWT_SECRET,
           signOptions: { expiresIn: '1h' },
-        }),
+        }), RolesModule
   ],
   controllers: [StaffController],
   providers: [
@@ -31,6 +33,7 @@ dotenv.config()
     GetAllStaffService,
     GetStaffByArgsService,
     DeleteStaffService,
+    AssignRoleToStaffService,
     StaffRepository,
     AutoMapperProfile,
   ],
