@@ -23,9 +23,8 @@ import {
 } from '@nestjs/swagger';
 import { GetAllRoutesService } from './services/get-all-routes.service';
 import { GetRouteByIdService } from './services/get-route-by-id.service';
-import { Roles } from 'src/common/guards/role.decorator';
+import { Permissions } from 'src/common/guards/role.decorator';
 import { AuthGuard } from 'src/common/guards/tokenAuth.guard';
-import { StaffRole } from '../staff/entities/staff.entity';
 import { ActiveRouteMainDto } from './dto/Routes Main Dtos/active-routes-main.dto';
 
 @ApiBearerAuth('access-token')
@@ -38,7 +37,7 @@ export class ActiveRoutesController {
   ) {}
 
   @UseGuards(AuthGuard)
-  @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('create_activeroute')
   @Post('create-route')
   @ApiOperation({
     summary: 'Create a new route using all the existing resources.',
@@ -56,16 +55,14 @@ export class ActiveRoutesController {
   }
 
   @UseGuards(AuthGuard)
-  @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_activeroute')
   @Get()
   @ApiOperation({
     summary: 'Retrieve all active routes.',
     description: 'Lists all routes currently marked as active.',
   })
   @ApiOkResponse({
-    description: 'List of active routes returned successfully.',
-    type: [ActiveRouteMainDto],
-  })
+    description: 'List of active routes returned successfully.'})
   @ApiUnauthorizedResponse({
     description: 'Unauthorized. Invalid or missing token.',
   })
@@ -75,16 +72,14 @@ export class ActiveRoutesController {
   }
 
   @UseGuards(AuthGuard)
-  @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_activeroute')
   @Get(':id')
   @ApiOperation({
     summary: 'Retrieve a specific active route by ID.',
     description: 'Fetches an active route by its unique identifier.',
   })
   @ApiOkResponse({
-    description: 'Active route found.',
-    type: ActiveRouteMainDto,
-  })
+    description: 'Active route found.'  })
   @ApiNotFoundResponse({ description: 'Route not found with the given ID.' })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized. Invalid or missing token.',
