@@ -33,7 +33,7 @@ import { RolesModule } from './common/roles/roles.module';
     TypeOrmModule.forRoot(AppDataSource.options),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),
-    }),
+    }), 
     StationsModule,
     RailLinesModule,
     ActiveRoutesModule,
