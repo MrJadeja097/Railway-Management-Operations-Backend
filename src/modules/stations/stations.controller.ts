@@ -37,7 +37,7 @@ export class StationsController {
   ) {}
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('create_station')
 @Post()
 @ApiOperation({
   summary: 'Create a station in the database.',
@@ -53,7 +53,7 @@ create(@Body() createStationDto: CreateStationDto) : Promise<StationResponseDto>
 }
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('read_station')
 @Get()
 @ApiOperation({
   summary: 'Get all stations.',
@@ -68,7 +68,7 @@ findAll() : Promise<StationResponseDto[]> {
 }
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('read_station')
 @Get(':id')
 @ApiOperation({
   summary: 'Find a station by ID.',
@@ -84,7 +84,7 @@ findOne(@Param('id') id: string): Promise<StationResponseDto> {
 }
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('update_station')
 @Patch(':id')
 @ApiOperation({
   summary: 'Update a station by ID.',
@@ -101,7 +101,7 @@ update(@Param('id') id: number, @Body() updateStationDto: UpdateStationDto) : Pr
 }
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('delete_station')
 @Delete(':id')
 @ApiOperation({
   summary: 'Delete a station by ID.',
@@ -117,7 +117,7 @@ remove(@Param('id') id: string) : Promise<boolean> {
 }
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('read_station')
 @Get('/searchStationByName/:name')
 @ApiOperation({
   summary: 'Search a station by name.',
@@ -133,7 +133,7 @@ search(@Param('name') name: string): Promise<StationResponseDto[]> {
 }
 
 @UseGuards(AuthGuard)
-// @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+@Permissions('read_station')
 @Get('/searchStationByRailLine/:RailLineName')
 @ApiOperation({
   summary: 'Search stations by RailLine name.',

@@ -17,7 +17,7 @@ import {
 export class Role_PermissionsRepository extends BaseRepo<
   Role_PermissionsEntity,
   Role_PermissionsMainDto,
-  number
+  {role_id: number, permission_id: number}
 > {
   constructor(
     @InjectRepository(Role_PermissionsEntity)
@@ -41,8 +41,8 @@ export class Role_PermissionsRepository extends BaseRepo<
   protected modifyFindOption(
     findOpts: FindManyOptions<Role_PermissionsEntity>,
     filterObj:
-      | Partial<Role_PermissionsMainDto & IPageableFilterBase<number>>
-      | Partial<Role_PermissionsMainDto & IFilterBase<number>>,
+      | Partial<Role_PermissionsMainDto & IPageableFilterBase<{role_id: number, permission_id: number}>>
+      | Partial<Role_PermissionsMainDto & IFilterBase<{role_id: number, permission_id: number}>>,
   ): void {
     findOpts.relations = ['roles', 'permissions'];
   }

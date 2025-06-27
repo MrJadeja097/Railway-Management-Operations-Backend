@@ -15,12 +15,12 @@ export class GetStaffByArgsService {
 
   async findbyId(id: number): Promise<StaffResponseDto> {
     try {
-      const response = await this.staffRepository.getAsync(id);
+      const response = await this.staffRepository.allAsync({id:id});
 
-      if (!response) {
+      if (response.length === 0) {
         throw new RPCNotFoundException('No staff member found.');
       }
-      return this.staffRepository.mapObjectToResponse(response);
+      return this.staffRepository.mapObjectToResponse(response[0]);
     } catch (error) {
       throw new RpcInternalServerErrorException();
     }

@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DATABASE_NAME,
   // entities: [join(process.cwd()),'dist/**/**/**/*.entity.js'],
   entities: [PermissionsEntity, Role_PermissionsEntity, RolesEntity, StaffEntity, ActiveRouteEntity, TrainEntity, StationEntity, RailLineEntity],
-  migrations: [join(process.cwd()),`dist/common/config/database/mig,rations/*{.ts,.js}`],
+  migrations: [join(process.cwd()),`dist/common/config/database/migrations/*{.ts,.js}`],
   synchronize: false,
   migrationsRun: false,
   logging: true,

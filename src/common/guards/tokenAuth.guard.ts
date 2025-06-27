@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
 import { ROLES_KEY, Permissions } from './role.decorator';
@@ -16,28 +12,21 @@ export class AuthGuard implements CanActivate {
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
   ) {}
-  async canActivate(
-    context: ExecutionContext,
-  ):  Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const requiredRoles = this.reflector.getAllAndOverride<string[]>(
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
     );
-
-    console.log(requiredRoles,'777777777777777777777');
-    
     const request = context.switchToHttp().getRequest();
 
     let decoded: JwtPayloadDto;
 
     const token = request.headers['authorization'].split(' ')[1];
     try {
-      decoded =  await this.jwtService.verify(token);
-      
+      decoded = await this.jwtService.verify(token);
     } catch {
       return false;
     }
-    
 
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;

@@ -19,6 +19,6 @@ export class RolesEntity  extends BaseCommonEntity {
     public role_permissions: Role_PermissionsEntity[];
 
     @AutoMap()
-    @OneToOne(() => StaffEntity, (staff) => staff.role)
-    public staff : StaffEntity;
+    @OneToMany(() => StaffEntity, (staff) => staff.role)
+    public staff : StaffEntity[];
 }

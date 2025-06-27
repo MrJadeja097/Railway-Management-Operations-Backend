@@ -41,7 +41,7 @@ export class RailLinesController {
   ) {}
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('create_railLine')
   @Post()
   @ApiOperation({
     summary: 'Add RailLine',
@@ -63,7 +63,7 @@ This endpoint is restricted to MANAGEMENT and ADMIN roles.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_railLine')
   @Get()
   @ApiOperation({
     summary: 'Get all RailLines',
@@ -82,7 +82,7 @@ Access is limited to MANAGEMENT and ADMIN roles.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('read_railLine')
   @Get(':id')
   @ApiOperation({
     summary: 'Get RailLine by ID',
@@ -104,7 +104,7 @@ Only users with MANAGEMENT or ADMIN privileges are allowed.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('update_railLine')
   @Patch(':id')
   @ApiOperation({
     summary: 'Update RailLine by ID',
@@ -130,7 +130,7 @@ This operation is restricted to MANAGEMENT and ADMIN roles.`,
   }
 
   @UseGuards(AuthGuard)
-  // @Roles(StaffRole.MANAGEMENT, StaffRole.ADMIN)
+  @Permissions('delete_railLine')
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete RailLine by ID',
