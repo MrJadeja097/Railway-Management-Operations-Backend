@@ -1,6 +1,12 @@
 import { Mapper, MappingProfile, createMap, forMember, mapFrom } from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
+import { PermissionsMainDto } from 'src/common/roles/dto/Main Dtos/permissions-main.dto';
+import { Role_PermissionsMainDto } from 'src/common/roles/dto/Main Dtos/role_permissions-main.dto';
+import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
+import { PermissionsEntity } from 'src/common/roles/entities/permissions.entity';
+import { Role_PermissionsEntity } from 'src/common/roles/entities/role-permissions.entity';
+import { RolesEntity } from 'src/common/roles/entities/role.entity';
 import { ActiveRouteMainDto } from 'src/modules/active-routes/dto/Routes Main Dtos/active-routes-main.dto';
 import { ActiveRouteResponseDto } from 'src/modules/active-routes/dto/Routes Response Dtos/routes-response.dto';
 import { ActiveRouteEntity } from 'src/modules/active-routes/entities/activeRoute.entity';
@@ -40,6 +46,9 @@ export class AutoMapperProfile extends AutomapperProfile {
       createMap(mapper, RailLineMainDto, RailLineResponseDto)
       createMap(mapper,ActiveRouteMainDto,ActiveRouteResponseDto)
       createMap(mapper,StaffMainDto,StaffResponseDto)
+      createMap(mapper,PermissionsEntity,PermissionsMainDto)
+      createMap(mapper,RolesEntity,RoleMainDto)
+      createMap(mapper,Role_PermissionsEntity,Role_PermissionsMainDto)
     };
   }
 }

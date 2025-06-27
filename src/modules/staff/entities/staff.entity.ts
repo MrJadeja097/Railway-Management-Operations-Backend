@@ -1,14 +1,8 @@
 import { AutoMap } from '@automapper/classes';
+import { RolesEntity } from 'src/common/roles/entities/role.entity';
 import { ActiveRouteEntity } from 'src/modules/active-routes/entities/activeRoute.entity';
 import { BaseCommonEntity } from 'src/utils/base.entity';
-import { Column, Entity, OneToOne } from 'typeorm';
-
-export enum StaffRole {
-  ADMIN = 'ADMIN',
-  MANAGEMENT = 'MANAGEMENT',
-  DRIVER = 'DRIVER',
-  BACK_GUARD = 'BACK_GUARD',
-}
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity()
 export class StaffEntity extends BaseCommonEntity {
@@ -40,10 +34,6 @@ export class StaffEntity extends BaseCommonEntity {
   @AutoMap()
   public password: string;
 
-  @Column({ type: 'enum', enum: StaffRole })
-  @AutoMap()
-  public role: StaffRole;
-
   @OneToOne(() => ActiveRouteEntity, (activeRoute) => activeRoute.driver)
   @AutoMap()
   public activeRouteDriver: ActiveRouteEntity;
@@ -51,4 +41,9 @@ export class StaffEntity extends BaseCommonEntity {
   @OneToOne(() => ActiveRouteEntity, (activeRoute) => activeRoute.back_guard)
   @AutoMap()
   public activeRouteBackGuard: ActiveRouteEntity;
+  
+  @AutoMap()
+  @OneToOne(() => RolesEntity, (role) => role.staff)
+  @JoinColumn({name : 'role_id'})
+  public role: RolesEntity;
 }

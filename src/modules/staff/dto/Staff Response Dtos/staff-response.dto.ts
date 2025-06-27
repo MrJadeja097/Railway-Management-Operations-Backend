@@ -1,5 +1,5 @@
 import { AutoMap } from '@automapper/classes';
-import { StaffRole } from 'src/modules/staff/entities/staff.entity';
+import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
 
 export class StaffResponseDto {
   @AutoMap()
@@ -27,7 +27,7 @@ export class StaffResponseDto {
   public city: string;
 
   @AutoMap()
-  public role: StaffRole;
+  public role: RoleMainDto;
 
   @AutoMap()
   public createdAt: Date;

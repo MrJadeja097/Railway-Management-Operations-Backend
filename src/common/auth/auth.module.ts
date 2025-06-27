@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { StaffModule } from 'src/modules/staff/staff.module';
 import * as dotenv from 'dotenv';
+import { RolesService } from '../roles/roles.service';
+import { RolesModule } from '../roles/roles.module';
 dotenv.config({ path: '.././.env' });
 
 @Module({
@@ -13,6 +15,7 @@ dotenv.config({ path: '.././.env' });
       signOptions: { expiresIn: '1h' },
     }),
     StaffModule,
+    RolesModule
   ],
   controllers: [AuthController],
   providers: [AuthService],
