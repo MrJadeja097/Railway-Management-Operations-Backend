@@ -33,7 +33,7 @@ import { RolesModule } from './common/roles/roles.module';
     TypeOrmModule.forRoot(AppDataSource.options),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),
-    }),
+    }), 
     StationsModule,
     RailLinesModule,
     ActiveRoutesModule,
@@ -56,8 +56,8 @@ import { RolesModule } from './common/roles/roles.module';
     AuthModule,
     RolesModule,
   ],
-  providers: [JwtService],
-  exports: [JwtService],
+  providers: [],
+  exports: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

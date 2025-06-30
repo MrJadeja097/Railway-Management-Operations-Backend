@@ -3,18 +3,22 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { RoleRequestDto } from './dto/Role Request Dtos/create-role.dto';
-import { UpdateRoleDto } from './dto/Role Request Dtos/update-role.dto';
+import { AuthGuard } from '../guards/tokenAuth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { Permissions } from '../guards/role.decorator';
 
 @Controller('roles')
+@UseGuards(AuthGuard)
+@ApiBearerAuth('access-token')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
+  @Permissions('create_role')
   @Post('create_role')
   async create(@Body() createRoleDto: RoleRequestDto) {
     return await this.rolesService.create(createRoleDto);
@@ -35,11 +39,13 @@ export class RolesController {
     return await this.rolesService.findRoleByName(role_name);
   }
 
+  @Permissions('add_permission')
   @Get('add_permission/:Role/:Permission')
   async addPermissionToRole(@Param('Role') Role: string, @Param('Permission') Permission: string){
     return await this.rolesService.addPermissionToRole(Role, Permission);
   }
 
+  @Permissions('remove_permission')
   @Get('remove_permission/:Role/:Permission')
   async RemovePermissionFromRole(@Param('Role') Role: string, @Param('Permission') Permission: string){
     return await this.rolesService.removePermissionToRole(Role, Permission);
