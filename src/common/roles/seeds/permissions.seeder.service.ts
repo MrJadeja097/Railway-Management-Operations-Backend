@@ -27,6 +27,12 @@ export class PermissionSeedService {
       'read_train',
       'update_train',
       'delete_train',
+      'create_role',
+      'add_permission',
+      'remove_permission',
+      'remove_role',
+      'assign_role_to_staff',
+      'read_permissions/roles'
     ];
 
     const permissionsDescriptions = [
@@ -48,15 +54,13 @@ export class PermissionSeedService {
       'Can view trains',
       'Can update train info',
       'Can delete trains',
+      'Can create a new Role.',
+      'Can add permission to a role.',
+      'Can remove permission from a role',
+      'Can remove/delete a role.',
+      'Can assign a role to any staff member.',
+      'Can read all the permissions and roles.'
     ];
-
-    // permissionsArr.forEach(async (permission, index) => {
-    //   let create_permission = new PermissionsRequestDto();
-    //   create_permission.name = permission;
-    //   create_permission.description = permissionsDescriptions[index];
-    //   const created = await this.permissionsRepo.createAsync(create_permission as unknown as PermissionsMainDto);
-    //   console.log(`${created.name} permission seed successfully.`);
-    // });
 
     for(let i =0; i< permissionsArr.length; i++){
       let create_permission = new PermissionsRequestDto();
