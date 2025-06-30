@@ -14,6 +14,7 @@ export class AuthenticateTokenMiddleware implements NestMiddleware {
         statusCode: HttpStatus.UNAUTHORIZED,
       });
     }
+    
     next();
   }
 }
