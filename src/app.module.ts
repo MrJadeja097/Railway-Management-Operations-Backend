@@ -13,7 +13,6 @@ import { classes } from '@automapper/classes';
 import { AutomapperModule } from '@automapper/nestjs';
 import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './common/auth/auth.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
 import { RolesModule } from './common/roles/roles.module';
 
 @Module({

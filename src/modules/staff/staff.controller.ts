@@ -151,7 +151,7 @@ Useful for flexible staff queries. Accessible to MANAGEMENT and ADMIN users.`,
   }
 
   @UseGuards(AuthGuard)
-  @Permissions('update_staff')
+  @Permissions('assign_role_to_staff')
   @Get('assign-role-to-staff/:staffId/:role')
   async assignRole(@Param('staffId') staffId:number, @Param('role') role:string){
     return await this.assignRoleToStaffService.assignRole(staffId, role)

@@ -24,16 +24,19 @@ export class RolesController {
     return await this.rolesService.create(createRoleDto);
   }
 
+  @Permissions('read_permissions/roles')
   @Get('all')
   async findAll() {
     return await this.rolesService.findAll();
   }
 
+  @Permissions('read_permissions/roles')
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.rolesService.findOne(+id);
   }
 
+  @Permissions('read_permissions/roles')
   @Get('findRoleByName/:role_name')
   async findByName(@Param('role_name') role_name: string) {
     return await this.rolesService.findRoleByName(role_name);
@@ -61,6 +64,7 @@ export class RolesController {
   //   return this.rolesService.remove(+id);
   // }
 
+  @Permissions('read_permissions/roles')
   @Get('seePermissionsOfRole/:roleId')
   async seePermissionsAllwoes(@Param('roleId') roleId:number){
     return await this.rolesService.seePermissionsOfRole(roleId)
