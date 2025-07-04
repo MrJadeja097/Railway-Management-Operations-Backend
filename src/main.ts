@@ -11,30 +11,31 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new RpcGlobalExceptionInterceptor());
   const config = new DocumentBuilder()
-    .setTitle('Railway Operations & Management API')
-    .setDescription(
-      `**Comprehensive API for managing the Indian Railway system.**
+  .setTitle('🚆 Railway Operations & Management API')
+  .setDescription(
+    `**Comprehensive API for managing the Indian Railway system.**
 
 This application provides secure, role-based access to perform CRUD operations on entities like \`Trains\`, \`Stations\`, \`RailLines\`, and \`Staff\`. 
 Built for railway administrators and managers, it ensures real-time control and visibility into route planning, staff coordination, and infrastructure data.
 
--> Secured via JWT authentication  
--> Designed for MANAGEMENT and ADMIN roles  
--> Scalable, modular, and optimized for performance  
--> Built with NestJS and follows strict API documentation standards`,
-    )
-    .setVersion('1.0')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'Authorization',
-        in: 'header',
-      },
-      'access-token',
-    )
-    .build();
+🔐 Secured via JWT authentication  
+🎯 Designed for MANAGEMENT and ADMIN roles  
+📦 Scalable, modular, and optimized for performance  
+🛠️ Built with NestJS and follows strict API documentation standards`,
+  )
+  .setVersion('1.0')
+  .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'Authorization',
+      in: 'header',
+    },
+    'access-token',
+  )
+  .build();
+
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
