@@ -59,6 +59,14 @@ All endpoints:
 # 1️⃣ Install dependencies
 yarn install
 
+
+# 3️⃣ Start the server (dev mode)
+yarn start:dev
+
+# 4️⃣ Access Swagger UI at
+# 1️⃣ Install dependencies
+yarn install
+
 # 2️⃣ Run database migrations (adjust for your setup)
 yarn typeorm migration:run
 
@@ -66,4 +74,14 @@ yarn typeorm migration:run
 yarn start:dev
 
 # 4️⃣ Access Swagger UI at
-http://localhost:3000/api
+# 1️⃣ Install dependencies
+yarn install
+
+# 2️⃣ Run database migrations (adjust for your setup)
+yarn typeorm migration:run
+
+# 3️⃣ Start the server (dev mode)
+yarn start:dev
+
+# 4️⃣ Access Swagger UI at
+http://localhost:3000/api](https://railway-management-operations-backend.onrender.com/api
