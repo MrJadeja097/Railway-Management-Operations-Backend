@@ -56,24 +56,7 @@ All endpoints:
 ## 🚦 How to Run Locally
 
 ```bash
-# 1️⃣ Install dependencies
-yarn install
 
-
-# 3️⃣ Start the server (dev mode)
-yarn start:dev
-
-# 4️⃣ Access Swagger UI at
-# 1️⃣ Install dependencies
-yarn install
-
-# 2️⃣ Run database migrations (adjust for your setup)
-yarn typeorm migration:run
-
-# 3️⃣ Start the server (dev mode)
-yarn start:dev
-
-# 4️⃣ Access Swagger UI at
 # 1️⃣ Install dependencies
 yarn install
 
