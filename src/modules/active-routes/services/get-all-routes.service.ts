@@ -7,7 +7,7 @@ import { ActiveRouteResponseDto } from '../dto/Routes Response Dtos/routes-respo
 export class GetAllRoutesService {
   constructor(private readonly activeRouteRepo: ActiveRouteRepository) {}
 
-  async getAllActiveRoutes() : Promise<ActiveRouteResponseDto[]> {
+  async getAllActiveRoutes(): Promise<ActiveRouteResponseDto[]> {
     const routes = await this.activeRouteRepo.allAsync({});
     if (routes.length === 0) {
       throw new RPCNotFoundException('No active routes found.');

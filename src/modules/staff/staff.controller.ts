@@ -43,7 +43,7 @@ export class StaffController {
   ) {}
 
   @UseGuards(AuthGuard)
-  // @Permissions('dcs','csaf')
+  @Permissions('create_staff')
   @Post()
   @ApiOperation({
     summary: 'Create a staff person.',
@@ -63,7 +63,7 @@ Provide all necessary staff details through the request body.`,
   }
 
   @UseGuards(AuthGuard)
-  @Permissions('create_staff')
+  @Permissions('read_staff')
   @Get('all')
   @ApiOperation({
     summary: 'Get all staff persons info.',

@@ -19,6 +19,7 @@ export class ActiveRouteMainDto {
 
   @AutoMap()
   public total_time: number; // In Minute
+  
   @AutoMap()
   public stations_included: number[];
 

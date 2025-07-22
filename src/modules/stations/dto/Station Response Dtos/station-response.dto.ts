@@ -1,5 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 import { RailLineMainDto } from 'src/modules/rail-lines/dto/Rail-Lines Main Dto/rail-line-main.dto';
+import { RailLineResponseDto } from 'src/modules/rail-lines/dto/Rail-Lines Response Dtos/railLine-response.dto';
 
 export class StationResponseDto {
   @AutoMap()
@@ -12,7 +13,7 @@ export class StationResponseDto {
   public longitude: number;
 
   @AutoMap()
-  public railLine: RailLineMainDto;
+  public railLine: RailLineResponseDto;
 
   @AutoMap()
   public id: number;

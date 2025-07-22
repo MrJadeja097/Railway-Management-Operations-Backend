@@ -25,16 +25,23 @@ export class AuthService {
       user.password,
     );
 
-    const all_role_permissions = await this.rolesService.getRoles_PermissionByRoleId(user.role.id)
+    const all_role_permissions =
+      await this.rolesService.getRoles_PermissionByRoleId(user.role.id);
 
-    let all_permissions = all_role_permissions.map((allRP) => {return allRP.permissions.name})
+    let all_permissions = all_role_permissions.map((allRP) => {
+      return allRP.permissions.name;
+    });
 
     if (match) {
       const token = await this.jwtService.signAsync({
         id: user.id,
         permissions: all_permissions,
       });
-      return token;
+      return {
+        token: token,
+        user_name: `${user.firstName} ${user.lastName}`,
+        role: user.role.name,
+      };
     } else {
       throw new RPCUnauthorizedException('Wrong Credentials.');
     }

@@ -46,10 +46,4 @@ export class CreateStaffDto {
   @IsString()
   @IsNotEmpty()
   public password: string;
-
-  @AutoMap()
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  public role: number | RoleRequestDto;
 }

@@ -65,8 +65,8 @@ Only users with MANAGEMENT or ADMIN roles can perform this operation.`,
     return this.createTrainService.create(createTrainDto);
   }
 
-  @UseGuards(AuthGuard)
-  @Permissions('read_train')
+  // @UseGuards(AuthGuard)
+  // @Permissions('read_train')
   @Get()
   @ApiOperation({
     summary: 'See all available Trains.',

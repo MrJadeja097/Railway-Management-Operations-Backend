@@ -16,8 +16,6 @@ export class CreateStaffService {
       const saltRounds = 10;
       staffCreateDto.password = await bcrypt.hash(staffCreateDto.password, saltRounds);
     }
-
-    
         const staff = await  this.staffRepository.createAsync(staffCreateDto as unknown as StaffMainDto)
         return this.staffRepository.mapObjectToResponse(staff)
     }

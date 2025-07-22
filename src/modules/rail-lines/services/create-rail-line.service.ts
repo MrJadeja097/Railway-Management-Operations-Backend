@@ -11,7 +11,6 @@ import { CreateStationService } from 'src/modules/stations/service/create-statio
 import { isObject } from 'class-validator';
 import { UpdateStationService } from 'src/modules/stations/service/update-station.service';
 import { UpdateRaillineService } from './update-railline.service';
-import { RailLineResponseDto } from '../dto/Rail-Lines Response Dtos/railLine-response.dto';
 import { RPCBadRequestException } from 'src/common/exceptions/badReuest.exception';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class CreateRailLineService {
     if (
       typeof createRailLine.startStation === 'number' &&
       typeof createRailLine.endStation === 'number'
-    ) {
+    ) {      
       const confirm_startStation = await this.getStationByIdService.stationById(
         createRailLine.startStation,
       );
@@ -63,9 +62,12 @@ export class CreateRailLineService {
       isObject(createRailLine.startStation) &&
       isObject(createRailLine.endStation)
     ) {
+      console.log("Insede the service------------------------------------------------------------");
       const create_startStation = await this.createStationService.create(
         createRailLine.startStation,
       );
+      console.log("stationCrated");
+      
       const create_endStation = await this.createStationService.create(
         createRailLine.endStation,
       );

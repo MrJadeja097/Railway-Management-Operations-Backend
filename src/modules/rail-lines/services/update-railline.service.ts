@@ -30,6 +30,14 @@ export class UpdateRaillineService {
         updateRailLine.endStation = await this.getStationByIdService.stationById(updateRailLine.endStation)
     } 
 
+    if ( updateRailLine.startStation && id !== updateRailLine.startStation.railLine.id) {
+      throw new RPCBadRequestException("Start station should be on this rail line.")
+    }
+
+    if (updateRailLine.endStation && id !== updateRailLine.endStation.railLine.id) {
+      throw new RPCBadRequestException("End station should be on this rail line.")
+    }
+
     RailLine.name = updateRailLine.name ? updateRailLine.name : RailLine.name; 
     RailLine.startStation = updateRailLine.startStation ? updateRailLine.startStation : RailLine.startStation; 
     RailLine.endStation = updateRailLine.endStation ? updateRailLine.endStation : RailLine.endStation; 

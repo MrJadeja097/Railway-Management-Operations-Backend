@@ -12,14 +12,10 @@ export class SearchStationByRailLineService {
     if ((await all_stations).length === 0) {
       throw new RPCNotFoundException(`No station have name like ${name}`);
     }
-
     const stations = (await all_stations).filter((station) => {
       if (station.railLine.name.toLowerCase().includes(name.toLowerCase()))
         return station;
     });
-    if (stations.length === 0) {
-      throw new RPCNotFoundException(`No station have name like ${name}`);
-    }
     return this.stationRepo.mapArrayToResponse(stations);
   }
 }

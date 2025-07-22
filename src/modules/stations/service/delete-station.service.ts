@@ -19,7 +19,15 @@ export class DeleteStationService {
     }
     const railLine = await this.getRailLineByIdService.RailLineById(check_station.railLine.id)
     if (railLine.startStation.id === id || railLine.endStation.id === id) {
-      throw new RpcInternalServerErrorException("Can not delete this staion, because it is at the start or end of the rail line.")
+      throw new RpcInternalServerErrorException("Can not delete this staion, because it is either the start or end station of the rail line.")
+    }
+    return await this.stationRepo.deleteAsync(id);
+  }
+
+  async deleteForce(id:number){
+    const check_station = await this.getStationByIdService.stationById(id);
+    if (!check_station) {
+      throw new RPCNotFoundException(`No station found on id ${id}.`);
     }
     return await this.stationRepo.deleteAsync(id);
   }

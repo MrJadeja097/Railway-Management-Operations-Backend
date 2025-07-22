@@ -15,47 +15,47 @@ export class CreateRouteDto {
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public startStation: number | StationResponseDto;
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public endStation: number | StationResponseDto;
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public total_length: number; // IN KM
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public total_time: number; // In Minutes
 
   @AutoMap()
   @ApiProperty({ example: [1, 2, 3], type: [Number] })
-  @IsArray()
-  @IsInt({ each: true })
-  public stations_included: number[];
+  // @IsArray()
+  // @IsInt({ each: true })
+  public stations_included?: number[];
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public driver: number | StaffResponseDto;
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public back_guard: number | StaffResponseDto;
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public trainId: number | TrainResponseDto;
 
   @AutoMap()
   @ApiProperty({ example: 3 })
-  @IsInt()
+  // @IsInt()
   public railLineId: number | RailLineResponseDto;
 }

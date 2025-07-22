@@ -52,8 +52,8 @@ create(@Body() createStationDto: CreateStationDto) : Promise<StationResponseDto>
   return this.createStationService.create(createStationDto);
 }
 
-@UseGuards(AuthGuard)
-@Permissions('read_station')
+// @UseGuards(AuthGuard)
+// @Permissions('read_station')
 @Get()
 @ApiOperation({
   summary: 'Get all stations.',

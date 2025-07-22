@@ -1,4 +1,10 @@
-import { Mapper, MappingProfile, createMap, forMember, mapFrom } from '@automapper/core';
+import {
+  Mapper,
+  MappingProfile,
+  createMap,
+  forMember,
+  mapFrom,
+} from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
 import { PermissionsMainDto } from 'src/common/roles/dto/Main Dtos/permissions-main.dto';
@@ -32,23 +38,49 @@ export class AutoMapperProfile extends AutomapperProfile {
     return (mapper) => {
       // For Responses
       createMap(mapper, StaffEntity, StaffMainDto);
-      createMap(mapper, StationEntity, StationMainDto,
+      createMap(
+        mapper,
+        StationEntity,
+        StationMainDto,
         forMember(
           (destination) => destination.railLine,
-          mapFrom((source) => source.railLine)
-        ),);
+          mapFrom((source) => source.railLine),
+        ),
+      );
       createMap(mapper, RailLineEntity, RailLineMainDto);
-      createMap(mapper, ActiveRouteEntity, ActiveRouteMainDto, forMember((dest) => dest.driver, mapFrom((src) => src.driver)), forMember((dest) => dest.back_guard, mapFrom((src) => src.back_guard)));
+      createMap(
+        mapper,
+        ActiveRouteEntity,
+        ActiveRouteMainDto,
+        forMember(
+          (dest) => dest.driver,
+          mapFrom((src) => src.driver),
+        ),
+        forMember(
+          (dest) => dest.back_guard,
+          mapFrom((src) => src.back_guard),
+        ),
+        forMember((dest) => dest.trainId, mapFrom((src) => src.trainId)),
+        forMember(dest => dest.stations_included, mapFrom(src => src.stations_included))
+      );
       createMap(mapper, TrainEntity, TrainMainDto);
 
-      createMap(mapper, TrainMainDto, TrainResponseDto)
-      createMap(mapper, StationMainDto, StationResponseDto, forMember((dest) => dest.railLine, mapFrom((src) => src.railLine)))
-      createMap(mapper, RailLineMainDto, RailLineResponseDto)
-      createMap(mapper,ActiveRouteMainDto,ActiveRouteResponseDto)
-      createMap(mapper,StaffMainDto,StaffResponseDto)
-      createMap(mapper,PermissionsEntity,PermissionsMainDto)
-      createMap(mapper,RolesEntity,RoleMainDto)
-      createMap(mapper,Role_PermissionsEntity,Role_PermissionsMainDto)
+      createMap(mapper, TrainMainDto, TrainResponseDto);
+      createMap(
+        mapper,
+        StationMainDto,
+        StationResponseDto,
+        forMember(
+          (dest) => dest.railLine,
+          mapFrom((src) => src.railLine),
+        ),
+      );
+      createMap(mapper, RailLineMainDto, RailLineResponseDto);
+      createMap(mapper, ActiveRouteMainDto, ActiveRouteResponseDto, forMember(dest => dest.stations_included, mapFrom(src => src.stations_included)));
+      createMap(mapper, StaffMainDto, StaffResponseDto);
+      createMap(mapper, PermissionsEntity, PermissionsMainDto);
+      createMap(mapper, RolesEntity, RoleMainDto);
+      createMap(mapper, Role_PermissionsEntity, Role_PermissionsMainDto);
     };
   }
 }

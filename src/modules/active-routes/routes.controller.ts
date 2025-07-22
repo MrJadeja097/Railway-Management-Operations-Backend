@@ -25,7 +25,6 @@ import { GetAllRoutesService } from './services/get-all-routes.service';
 import { GetRouteByIdService } from './services/get-route-by-id.service';
 import { Permissions } from 'src/common/guards/role.decorator';
 import { AuthGuard } from 'src/common/guards/tokenAuth.guard';
-import { ActiveRouteMainDto } from './dto/Routes Main Dtos/active-routes-main.dto';
 
 @ApiBearerAuth('access-token')
 @Controller('routes')
@@ -54,8 +53,8 @@ export class ActiveRoutesController {
     return this.createRouteService.create(createRouteDto);
   }
 
-  @UseGuards(AuthGuard)
-  @Permissions('read_activeroute')
+  // @UseGuards(AuthGuard)
+  // @Permissions('read_activeroute')
   @Get()
   @ApiOperation({
     summary: 'Retrieve all active routes.',

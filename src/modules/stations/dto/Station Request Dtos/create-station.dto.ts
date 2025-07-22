@@ -17,6 +17,6 @@ export class CreateStationDto {
   public longitude: number;
 
   @ApiProperty({ example: 3 })
-  @IsNumber()
+  // @IsNumber()
   public railLine: RailLineResponseDto | number;
 }

@@ -5,7 +5,7 @@ import { GetRailLineByIdService } from '../../rail-lines/services/get-rail-line-
 import { StationMainDto } from '../dto/Stations Main Dtos/station-main.dto';
 import { UpdateRaillineService } from 'src/modules/rail-lines/services/update-railline.service';
 import { StationResponseDto } from '../dto/Station Response Dtos/station-response.dto';
-import { DbException } from 'src/common/exceptions';
+import { RPCBadRequestException } from 'src/common/exceptions/badReuest.exception';
 
 @Injectable()
 export class CreateStationService {
@@ -17,13 +17,18 @@ export class CreateStationService {
 
   async create(createStation: CreateStationDto) : Promise<StationResponseDto>{
     if (typeof createStation.railLine === 'number') {
-      const rail_line = await this.getRailLineByIdService.RailLineById(createStation.railLine);
-      createStation.railLine = rail_line;
-      const station = await this.stationRepo.createAsync(createStation as unknown as StationMainDto);
-      this.updateRaillineService.updateRailLine(rail_line.id, {})
-      return this.stationRepo.mapObjectToResponse(station);
+      try {
+        const rail_line = await this.getRailLineByIdService.RailLineById(createStation.railLine);
+        createStation.railLine = rail_line;
+        const station = await this.stationRepo.createAsync(createStation as unknown as StationMainDto);
+        this.updateRaillineService.updateRailLine(rail_line.id, {})
+        return this.stationRepo.mapObjectToResponse(station);
+      } catch (error) {
+        throw new RPCBadRequestException(error.error.message)
+      }
     } else {
-      throw new DbException()
+     const station = await this.stationRepo.createAsync(createStation as unknown as StationMainDto);
+        return this.stationRepo.mapObjectToResponse(station);
     }
   }
 }

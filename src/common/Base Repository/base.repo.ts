@@ -10,7 +10,7 @@ import { DbException } from "src/common/exceptions";
 
 
 export abstract class BaseRepo<TEntity extends ObjectLiteral, T, TKey, TPageableFilter extends PageableFilter<any> = PageableFilter<T, TKey>, TFilter extends Filter<any> = Filter<T, TKey>>
-  extends BaseReadOnlyRepo<TEntity, T, TKey, TPageableFilter, TFilter>
+extends BaseReadOnlyRepo<TEntity, T, TKey, TPageableFilter, TFilter>
   implements IBaseRepo<T, TKey, TPageableFilter, TFilter>
 {
   constructor(internalRepo: Repository<TEntity>, mapper: Mapper, logger: PinoLogger, entityType: Type<TEntity>, domainType: Type<T>) {

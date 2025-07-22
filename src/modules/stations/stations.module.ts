@@ -24,6 +24,6 @@ dotenv.config()
           }),],
   controllers: [StationsController],
   providers: [StationsService, CreateStationService, GetAllStationsService, GetStationByIdService, StationRepository, AutoMapperProfile, UpdateStationService, DeleteStationService, SearchStationService, SearchStationByRailLineService],
-  exports: [GetStationByIdService, CreateStationService, UpdateStationService, SearchStationByRailLineService]
+  exports: [GetStationByIdService, CreateStationService, UpdateStationService, SearchStationByRailLineService, DeleteStationService]
 })
 export class StationsModule {}
