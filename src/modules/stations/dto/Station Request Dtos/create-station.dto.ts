@@ -12,11 +12,12 @@ export class CreateStationDto {
   @IsNumber()
   public latitude: number;
 
+  @ApiProperty({example: 3})
+  @IsNumber()
+  public rail_line_id: number;
+
   @ApiProperty({ example: 53.56123407 })
   @IsNumber()
   public longitude: number;
 
-  @ApiProperty({ example: 3 })
-  // @IsNumber()
-  public railLine: RailLineResponseDto | number;
 }

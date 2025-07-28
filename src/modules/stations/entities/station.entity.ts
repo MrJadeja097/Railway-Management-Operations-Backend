@@ -2,13 +2,7 @@ import { AutoMap } from '@automapper/classes';
 import { ActiveRouteEntity } from 'src/modules/active-routes/entities/activeRoute.entity';
 import { RailLineEntity } from 'src/modules/rail-lines/entities/rail-line.entity';
 import { BaseCommonEntity } from 'src/utils/base.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class StationEntity extends BaseCommonEntity {
@@ -38,10 +32,15 @@ export class StationEntity extends BaseCommonEntity {
   @AutoMap()
   public longitude: number;
 
+  @Column()
+  @AutoMap()
+  rail_line_id: number;
+
   @ManyToOne(() => RailLineEntity, (railLineEntity) => railLineEntity.station)
   @JoinColumn({
     name: 'rail_line_id',
     referencedColumnName: 'id',
+    foreignKeyConstraintName: 'rail_line_id',
   })
   @AutoMap()
   public railLine: RailLineEntity;
@@ -54,7 +53,7 @@ export class StationEntity extends BaseCommonEntity {
   @AutoMap()
   public endingRoutes: ActiveRouteEntity[];
 
-    @OneToMany(() => RailLineEntity, (railLine) => railLine.startStation)
+  @OneToMany(() => RailLineEntity, (railLine) => railLine.startStation)
   @AutoMap()
   public startingRailLine: RailLineEntity[];
 

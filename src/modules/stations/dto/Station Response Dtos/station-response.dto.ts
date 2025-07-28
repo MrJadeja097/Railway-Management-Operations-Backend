@@ -1,5 +1,4 @@
 import { AutoMap } from '@automapper/classes';
-import { RailLineMainDto } from 'src/modules/rail-lines/dto/Rail-Lines Main Dto/rail-line-main.dto';
 import { RailLineResponseDto } from 'src/modules/rail-lines/dto/Rail-Lines Response Dtos/railLine-response.dto';
 
 export class StationResponseDto {
@@ -26,4 +25,7 @@ export class StationResponseDto {
 
   @AutoMap()
   public deletedAt: Date;
+  
+  @AutoMap()
+  public rail_line_id: number;
 }

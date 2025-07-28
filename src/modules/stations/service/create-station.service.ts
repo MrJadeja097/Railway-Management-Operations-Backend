@@ -6,6 +6,7 @@ import { StationMainDto } from '../dto/Stations Main Dtos/station-main.dto';
 import { UpdateRaillineService } from 'src/modules/rail-lines/services/update-railline.service';
 import { StationResponseDto } from '../dto/Station Response Dtos/station-response.dto';
 import { RPCBadRequestException } from 'src/common/exceptions/badReuest.exception';
+import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class CreateStationService {
@@ -15,20 +16,27 @@ export class CreateStationService {
     private readonly updateRaillineService: UpdateRaillineService,
   ) {}
 
-  async create(createStation: CreateStationDto) : Promise<StationResponseDto>{
-    if (typeof createStation.railLine === 'number') {
-      try {
-        const rail_line = await this.getRailLineByIdService.RailLineById(createStation.railLine);
-        createStation.railLine = rail_line;
-        const station = await this.stationRepo.createAsync(createStation as unknown as StationMainDto);
-        this.updateRaillineService.updateRailLine(rail_line.id, {})
-        return this.stationRepo.mapObjectToResponse(station);
-      } catch (error) {
-        throw new RPCBadRequestException(error.error.message)
+  async create(createStation: CreateStationDto): Promise<StationResponseDto> {
+    try {
+      const station = await this.stationRepo.createAsync(
+        createStation as unknown as StationMainDto,
+      );
+      this.updateRaillineService.updateRailLine(station.rail_line_id, {});
+      return this.stationRepo.mapObjectToResponse(station);
+    } catch (error) {
+      if (
+        error.error.table === 'station_entity' &&
+        error.error.constraint === 'rail_line_id'
+      ) {
+        throw new RPCBadRequestException('Rail Line id is inaccurate.');
       }
-    } else {
-     const station = await this.stationRepo.createAsync(createStation as unknown as StationMainDto);
-        return this.stationRepo.mapObjectToResponse(station);
+      if (
+        error.error.table === 'station_entity' &&
+        error.error.constraint === 'UQ_dee947e3b88a53c8752d2c46aef'
+      ) {
+        throw new RPCBadRequestException('Station with that name already exist.');
+      }
+      throw new RPCBadRequestException();
     }
   }
 }

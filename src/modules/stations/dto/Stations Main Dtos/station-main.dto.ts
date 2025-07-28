@@ -16,6 +16,9 @@ export class StationMainDto {
   public railLine: RailLineMainDto;
 
   @AutoMap()
+  public rail_line_id: number;
+
+  @AutoMap()
   public startingRoutes: ActiveRouteMainDto[];
 
   @AutoMap()
