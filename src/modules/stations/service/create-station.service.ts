@@ -6,7 +6,6 @@ import { StationMainDto } from '../dto/Stations Main Dtos/station-main.dto';
 import { UpdateRaillineService } from 'src/modules/rail-lines/services/update-railline.service';
 import { StationResponseDto } from '../dto/Station Response Dtos/station-response.dto';
 import { RPCBadRequestException } from 'src/common/exceptions/badReuest.exception';
-import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class CreateStationService {
