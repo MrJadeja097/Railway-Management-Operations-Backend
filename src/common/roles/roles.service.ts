@@ -8,14 +8,16 @@ import { RoleMainDto } from "./dto/Main Dtos/roles-main.dto";
 import { PermissionsRepository } from "./repositories/permissions.repository";
 import { Role_PermissionsRequestDto } from "./dto/Role Request Dtos/role_permissions-requesr.dto";
 import { Role_PermissionsMainDto } from "./dto/Main Dtos/role_permissions-main.dto";
-import { NotFoundError } from "rxjs";
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 
 @Injectable()
 export class RolesService {
   constructor(
     private readonly rolesRepo: RolesRepository,
     private readonly role_PermissionsRepo: Role_PermissionsRepository,
-    private readonly permissionsRepo: PermissionsRepository
+    private readonly permissionsRepo: PermissionsRepository,
+    @InjectMapper() private readonly mapper:Mapper
   ) {}
   async create(createRoleDto: RoleRequestDto) {
     const check_role = await this.findRoleByName(createRoleDto.name);
@@ -24,7 +26,8 @@ export class RolesService {
         `Role named ${check_role.name} already exists.`
       );
     }
-    return this.rolesRepo.createAsync(createRoleDto as unknown as RoleMainDto);
+    const mappedDto = this.mapper.map(createRoleDto, RoleRequestDto, RoleMainDto)
+    return this.rolesRepo.createAsync(mappedDto);
   }
 
   async findAll() {
@@ -44,9 +47,9 @@ export class RolesService {
   //   return `This action updates a #${id} role`;
   // }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} role`;
-  // }
+  remove(id: number) {
+    return this.rolesRepo.deleteAsync(id);
+  }
 
   async getRoles_PermissionByRoleId(id: number) {
     return await this.role_PermissionsRepo.allAsync({ role_id: id });
@@ -62,14 +65,12 @@ export class RolesService {
   async addPermissionToRole(role: string, permission: string) {
     const get_role = await this.findRoleByName(role);
     const get_permission = await this.findPermissionByname(permission);
-    let create_role_permisson = new Role_PermissionsRequestDto();
-    create_role_permisson.role_id = get_role;
-    create_role_permisson.permission_id = get_permission;
-    
 
-    const created = await this.role_PermissionsRepo.createAsync(
-      {...create_role_permisson, deletedAt: null} as unknown as Role_PermissionsMainDto
-    );
+    let create_role_permisson = new Role_PermissionsRequestDto();
+    create_role_permisson.role_id = get_role.id;
+    create_role_permisson.permission_id = get_permission.id;
+    
+    const created = await this.role_PermissionsRepo.createAsync({...create_role_permisson, deletedAt: null} as unknown as Role_PermissionsMainDto);
     return created;
   }
 

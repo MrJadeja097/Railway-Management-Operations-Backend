@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common';
 import { PermissionsMainDto } from 'src/common/roles/dto/Main Dtos/permissions-main.dto';
 import { Role_PermissionsMainDto } from 'src/common/roles/dto/Main Dtos/role_permissions-main.dto';
 import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
+import { RoleRequestDto } from 'src/common/roles/dto/Role Request Dtos/create-role.dto';
 import { PermissionsEntity } from 'src/common/roles/entities/permissions.entity';
 import { Role_PermissionsEntity } from 'src/common/roles/entities/role-permissions.entity';
 import { RolesEntity } from 'src/common/roles/entities/role.entity';
@@ -20,12 +21,15 @@ import { RailLineMainDto } from 'src/modules/rail-lines/dto/Rail-Lines Main Dto/
 import { RailLineResponseDto } from 'src/modules/rail-lines/dto/Rail-Lines Response Dtos/railLine-response.dto';
 import { RailLineEntity } from 'src/modules/rail-lines/entities/rail-line.entity';
 import { StaffMainDto } from 'src/modules/staff/dto/Staff Main Dtos/staff-main.dto';
+import { CreateStaffDto } from 'src/modules/staff/dto/Staff Request Dtos/create-staff.dto';
 import { StaffResponseDto } from 'src/modules/staff/dto/Staff Response Dtos/staff-response.dto';
 import { StaffEntity } from 'src/modules/staff/entities/staff.entity';
+import { CreateStationDto } from 'src/modules/stations/dto/Station Request Dtos/create-station.dto';
 import { StationResponseDto } from 'src/modules/stations/dto/Station Response Dtos/station-response.dto';
 import { StationMainDto } from 'src/modules/stations/dto/Stations Main Dtos/station-main.dto';
 import { StationEntity } from 'src/modules/stations/entities/station.entity';
 import { TrainMainDto } from 'src/modules/trains/dto/Train Main Dtos/train-main.dto';
+import { CreateTrainDto } from 'src/modules/trains/dto/Train Request Dtos/create-train.dto';
 import { TrainResponseDto } from 'src/modules/trains/dto/Train Response Dtos/train-response.dto';
 import { TrainEntity } from 'src/modules/trains/entities/train.entity';
 
@@ -81,6 +85,11 @@ export class AutoMapperProfile extends AutomapperProfile {
       createMap(mapper, PermissionsEntity, PermissionsMainDto);
       createMap(mapper, RolesEntity, RoleMainDto);
       createMap(mapper, Role_PermissionsEntity, Role_PermissionsMainDto);
+
+      createMap(mapper, RoleRequestDto, RoleMainDto)
+      createMap(mapper, CreateStaffDto, StaffMainDto)
+      createMap(mapper, CreateTrainDto, TrainMainDto)
+      createMap(mapper, CreateStationDto, StationMainDto)
     };
   }
 }

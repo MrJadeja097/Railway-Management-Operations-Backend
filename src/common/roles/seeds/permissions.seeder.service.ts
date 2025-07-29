@@ -30,7 +30,7 @@ export class PermissionSeedService {
       'create_role',
       'add_permission',
       'remove_permission',
-      'remove_role',
+      'delete_role',
       'assign_role_to_staff',
       'read_permissions/roles'
     ];

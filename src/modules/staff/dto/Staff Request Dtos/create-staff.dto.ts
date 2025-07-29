@@ -1,8 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { RoleMainDto } from 'src/common/roles/dto/Main Dtos/roles-main.dto';
-import { RoleRequestDto } from 'src/common/roles/dto/Role Request Dtos/create-role.dto';
 
 export class CreateStaffDto {
   @AutoMap()

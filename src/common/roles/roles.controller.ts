@@ -5,6 +5,7 @@ import {
   Body,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { RoleRequestDto } from './dto/Role Request Dtos/create-role.dto';
@@ -59,10 +60,11 @@ export class RolesController {
   //   return await this.rolesService.update(+id, updateRoleDto);
   // }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.rolesService.remove(+id);
-  // }
+  @Permissions('delete_role')
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.rolesService.remove(+id);
+  }
 
   @Permissions('read_permissions/roles')
   @Get('seePermissionsOfRole/:roleId')
