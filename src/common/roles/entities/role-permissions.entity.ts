@@ -23,8 +23,8 @@ export class Role_PermissionsEntity {
   permission_id: number;
 
   @AutoMap()
-  @ManyToOne(() => RolesEntity, (roles) => roles.role_permissions)
-  @JoinColumn({ name: 'role_id' })
+  @ManyToOne(() => RolesEntity, (roles) => roles.role_permissions, {onDelete:'CASCADE'})
+  @JoinColumn({ name: 'role_id' , referencedColumnName:'id'})
   roles: RolesEntity;
 
   @AutoMap()

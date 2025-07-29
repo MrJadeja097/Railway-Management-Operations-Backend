@@ -47,8 +47,19 @@ export class RolesService {
   //   return `This action updates a #${id} role`;
   // }
 
-  remove(id: number) {
-    return this.rolesRepo.deleteAsync(id);
+  async remove(id: number) {
+    try{
+      return await this.rolesRepo.deleteAsync(id);
+    } catch(error) {   
+      if (
+        error.error.table === 'staff_entity' &&
+        error.error.constraint === 'FK_ea12604cdbecf98dbab458ec5a5'
+      ) {
+        throw new RPCBadRequestException('This Role is still assigned to some members.');
+      } else {
+        throw new RPCBadRequestException('Unknown error captured.');
+      }
+    }
   }
 
   async getRoles_PermissionByRoleId(id: number) {

@@ -15,7 +15,7 @@ export class RolesEntity  extends BaseCommonEntity {
     public description: string;
 
     @AutoMap()
-    @OneToMany(() => Role_PermissionsEntity, (role_permission) => role_permission.roles)
+    @OneToMany(() => Role_PermissionsEntity, (role_permission) => role_permission.roles, {onDelete:'CASCADE'})
     public role_permissions: Role_PermissionsEntity[];
 
     @AutoMap()

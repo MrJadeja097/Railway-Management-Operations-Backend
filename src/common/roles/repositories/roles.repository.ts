@@ -24,9 +24,9 @@ export class RolesRepository extends BaseRepo<
     super(RolesRepo,classMapper,logger,RolesEntity,RoleMainDto);
   }
 
-  public override get softDeleteEnabled(): boolean {
-    return true;
-  }
+  // public override get softDeleteEnabled(): boolean {
+  //   return true;
+  // }
 
   //   public mapObjectToResponse(answer: any) {
   //       return this.classMapper.map(answer, RolesMainDto, RolesResponseDto);
