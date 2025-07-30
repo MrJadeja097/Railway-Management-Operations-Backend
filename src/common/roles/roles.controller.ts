@@ -12,6 +12,7 @@ import { RoleRequestDto } from './dto/Role Request Dtos/create-role.dto';
 import { AuthGuard } from '../guards/tokenAuth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Permissions } from '../guards/role.decorator';
+import { AddPermissionDto } from './dto/Role Request Dtos/add-permission-to-role.dto';
 
 @Controller('roles')
 @UseGuards(AuthGuard)
@@ -44,9 +45,9 @@ export class RolesController {
   }
 
   @Permissions('add_permission')
-  @Get('add_permission/:Role/:Permission')
-  async addPermissionToRole(@Param('Role') Role: string, @Param('Permission') Permission: string){
-    return await this.rolesService.addPermissionToRole(Role, Permission);
+  @Post('add_permission')
+  async addPermissionToRole(@Body() addPermissonDto: AddPermissionDto){
+    return await this.rolesService.addPermissionToRole(addPermissonDto);
   }
 
   @Permissions('remove_permission')

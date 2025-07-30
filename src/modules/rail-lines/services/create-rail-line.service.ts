@@ -27,7 +27,7 @@ export class CreateRailLineService {
     if (
       typeof createRailLine.startStation === 'number' &&
       typeof createRailLine.endStation === 'number'
-    ) {      
+    ) {
       const confirm_startStation = await this.getStationByIdService.stationById(
         createRailLine.startStation,
       );
@@ -52,22 +52,19 @@ export class CreateRailLineService {
             'Start station and end station should be on same rail line.',
           );
         } else {
-          const created =  await this.railLineRepository.createAsync(
+          const created = await this.railLineRepository.createAsync(
             createRailLine as unknown as RailLineMainDto,
           );
-          return this.railLineRepository.mapObjectToResponse(created)
+          return this.railLineRepository.mapObjectToResponse(created);
         }
       }
     } else if (
       isObject(createRailLine.startStation) &&
       isObject(createRailLine.endStation)
     ) {
-      console.log("Insede the service------------------------------------------------------------");
       const create_startStation = await this.createStationService.create(
         createRailLine.startStation,
       );
-      console.log("stationCrated");
-      
       const create_endStation = await this.createStationService.create(
         createRailLine.endStation,
       );
@@ -96,15 +93,15 @@ export class CreateRailLineService {
         );
 
         if (!update_startStation && !update_endStation) {
-          throw new DbException('Error while updating stations.')
+          throw new DbException('Error while updating stations.');
         }
 
-        await this.updateRaillineService.updateRailLine(create_railline.id, {})
+        await this.updateRaillineService.updateRailLine(create_railline.id, {});
 
         return this.railLineRepository.mapObjectToResponse(create_railline);
       }
     } else {
-      throw new RPCBadRequestException()
+      throw new RPCBadRequestException();
     }
   }
 }

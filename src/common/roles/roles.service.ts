@@ -10,6 +10,7 @@ import { Role_PermissionsRequestDto } from "./dto/Role Request Dtos/role_permiss
 import { Role_PermissionsMainDto } from "./dto/Main Dtos/role_permissions-main.dto";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
+import { AddPermissionDto } from "./dto/Role Request Dtos/add-permission-to-role.dto";
 
 @Injectable()
 export class RolesService {
@@ -73,14 +74,11 @@ export class RolesService {
     return permissions[0];
   }
 
-  async addPermissionToRole(role: string, permission: string) {
-    const get_role = await this.findRoleByName(role);
-    const get_permission = await this.findPermissionByname(permission);
-
+  async addPermissionToRole(addPermissionDto: AddPermissionDto) {
+    const get_permission = await this.findPermissionByname(addPermissionDto.permissionName);
     let create_role_permisson = new Role_PermissionsRequestDto();
-    create_role_permisson.role_id = get_role.id;
+    create_role_permisson.role_id = addPermissionDto.roleId;
     create_role_permisson.permission_id = get_permission.id;
-    
     const created = await this.role_PermissionsRepo.createAsync({...create_role_permisson, deletedAt: null} as unknown as Role_PermissionsMainDto);
     return created;
   }
