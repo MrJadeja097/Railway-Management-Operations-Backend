@@ -29,6 +29,7 @@ import { AuthGuard } from 'src/common/guards/tokenAuth.guard';
 import { Permissions } from 'src/common/guards/role.decorator';
 import { StaffResponseDto } from './dto/Staff Response Dtos/staff-response.dto';
 import { AssignRoleToStaffService } from './services/assign-role-to-staff.service';
+import { AssignRoleToStaffDto } from './dto/Staff Request Dtos/assign-role-to-staff.dto';
 
 @UseInterceptors(LoggingInterceptor)
 @Controller('staff')
@@ -152,8 +153,8 @@ Useful for flexible staff queries. Accessible to MANAGEMENT and ADMIN users.`,
 
   @UseGuards(AuthGuard)
   @Permissions('assign_role_to_staff')
-  @Get('assign-role-to-staff/:staffId/:role')
-  async assignRole(@Param('staffId') staffId:number, @Param('role') role:string){
-    return await this.assignRoleToStaffService.assignRole(staffId, role)
+  @Post('assign-role-to-staff')
+  async assignRole(@Body() assignRoleToStaffDto:AssignRoleToStaffDto){
+    return await this.assignRoleToStaffService.assignRole(assignRoleToStaffDto)
   }
 }
