@@ -35,7 +35,7 @@ export class CreateStationService {
       ) {
         throw new RPCBadRequestException('Station with that name already exist.');
       }
-      throw new RPCBadRequestException();
+      throw new RPCBadRequestException("Unknown error captured.");
     }
   }
 }

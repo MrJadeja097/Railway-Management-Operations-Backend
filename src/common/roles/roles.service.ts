@@ -22,14 +22,24 @@ export class RolesService {
     @InjectMapper() private readonly mapper:Mapper
   ) {}
   async create(createRoleDto: RoleRequestDto) {
-    const check_role = await this.findRoleByName(createRoleDto.name);
-    if (check_role) {
-      throw new RPCBadRequestException(
-        `Role named ${check_role.name} already exists.`
-      );
+    // const check_role = await this.findRoleByName(createRoleDto.name);
+    // if (check_role) {
+    //   throw new RPCBadRequestException(
+    //     `Role named ${check_role.name} already exists.`
+    //   );
+    // }
+    try {
+      const mappedDto = this.mapper.map(createRoleDto, RoleRequestDto, RoleMainDto)
+      return await this.rolesRepo.createAsync(mappedDto);
+    } catch (error) {
+      if (
+        error.error.table === 'roles' &&
+        error.error.constraint === 'UQ_648e3f5447f725579d7d4ffdfb7'
+      ) {
+        throw new RPCBadRequestException('Role with this name already exists.');
+      }
+      throw new RPCBadRequestException("Unknown error captured.");
     }
-    const mappedDto = this.mapper.map(createRoleDto, RoleRequestDto, RoleMainDto)
-    return this.rolesRepo.createAsync(mappedDto);
   }
 
   async findAll() {
