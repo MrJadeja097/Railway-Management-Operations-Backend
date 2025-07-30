@@ -13,6 +13,7 @@ import { AuthGuard } from '../guards/tokenAuth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Permissions } from '../guards/role.decorator';
 import { AddPermissionDto } from './dto/Role Request Dtos/add-permission-to-role.dto';
+import { RemovePermissionDto } from './dto/Role Request Dtos/remove-permission-to-role.dto';
 
 @Controller('roles')
 @UseGuards(AuthGuard)
@@ -46,14 +47,14 @@ export class RolesController {
 
   @Permissions('add_permission')
   @Post('add_permission')
-  async addPermissionToRole(@Body() addPermissonDto: AddPermissionDto){
-    return await this.rolesService.addPermissionToRole(addPermissonDto);
+  async addPermissionToRole(@Body() addPermissionDto: AddPermissionDto){
+    return await this.rolesService.addPermissionToRole(addPermissionDto);
   }
-
+  
   @Permissions('remove_permission')
-  @Get('remove_permission/:Role/:Permission')
-  async RemovePermissionFromRole(@Param('Role') Role: string, @Param('Permission') Permission: string){
-    return await this.rolesService.removePermissionToRole(Role, Permission);
+  @Post('remove_permission')
+  async RemovePermissionFromRole(@Body() removePermissionDto:RemovePermissionDto){
+    return await this.rolesService.removePermissionToRole(removePermissionDto);
   }
 
   // @Patch(':id')

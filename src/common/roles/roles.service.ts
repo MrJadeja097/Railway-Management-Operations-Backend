@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { UpdateRoleDto } from "./dto/Role Request Dtos/update-role.dto";
 import { RoleRequestDto } from "./dto/Role Request Dtos/create-role.dto";
 import { RolesRepository } from "./repositories/roles.repository";
 import { Role_PermissionsRepository } from "./repositories/role-permissions.repository";
@@ -11,6 +10,8 @@ import { Role_PermissionsMainDto } from "./dto/Main Dtos/role_permissions-main.d
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 import { AddPermissionDto } from "./dto/Role Request Dtos/add-permission-to-role.dto";
+import { RemovePermissionDto } from "./dto/Role Request Dtos/remove-permission-to-role.dto";
+import { RPCNotFoundException } from "../exceptions";
 
 @Injectable()
 export class RolesService {
@@ -71,7 +72,11 @@ export class RolesService {
     const permissions = await this.permissionsRepo.allAsync({
       name: permission,
     });
-    return permissions[0];
+    if (permissions.length===0) {
+      throw new RPCNotFoundException(`No Permission found as ${permission}`)
+    } else {
+      return permissions[0];
+    }
   }
 
   async addPermissionToRole(addPermissionDto: AddPermissionDto) {
@@ -87,17 +92,16 @@ export class RolesService {
     return await this.role_PermissionsRepo.allAsync({ role_id: roleId });
   }
 
-  async removePermissionToRole(role: string, permission: string) {
-    const get_role = await this.findRoleByName(role);
-    const get_permission = await this.findPermissionByname(permission);
+  async removePermissionToRole(removePermissionDto:RemovePermissionDto) {
+    const get_permission = await this.findPermissionByname(removePermissionDto.permissionName);
 
     const delete_id = await this.role_PermissionsRepo.allAsync({
-      role_id: get_role.id,
+      role_id: removePermissionDto.roleId,
       permission_id: get_permission.id,
     });
 
     if (delete_id.length === 0) {
-      throw new RPCBadRequestException(`Permission: ${permission} is not given to Role: ${role}.`)
+      throw new RPCBadRequestException(`Permission: ${removePermissionDto.permissionName} is not given to this Role.`)
     }
 
     const deleted = await this.role_PermissionsRepo.deleteAsync({
@@ -107,11 +111,11 @@ export class RolesService {
     return deleted
       ? {
           success: true,
-          msg: `${get_permission.name} removed from ${get_role.name}.`,
+          msg: `${get_permission.name} removed from this Role.`,
         }
       : {
           success: false,
-          msg: `${get_permission.name} not removed from ${get_role.name}.`,
+          msg: `${get_permission.name} not removed from this Role.`,
         };
   }
 }
