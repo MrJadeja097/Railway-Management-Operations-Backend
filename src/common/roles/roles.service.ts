@@ -42,7 +42,11 @@ export class RolesService {
 
   async findRoleByName(name: string) {
     const role = await this.rolesRepo.allAsync({ name: name });
-    return role[0];
+    if(role.length===0){
+      throw new RPCNotFoundException(`No Role Found as ${name}`)
+    } else {
+      return role[0];
+    }
   }
 
   // update(id: number, updateRoleDto: UpdateRoleDto) {
