@@ -40,6 +40,6 @@ Built for railway administrators and managers, it ensures real-time control and 
   SwaggerModule.setup('api', app, document);
   app.enableCors();
 
-  await app.listen(process.env.PORT ?? 1000);
+  await app.listen(process.env.PORT ?? 10000);
 }
 bootstrap();
